@@ -1,34 +1,42 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema(
   {
-    firstname: {
+    firstName: {
       type: String,
       required: true,
+      minlength: 2,
+      maxlength: 30,
     },
-    lastname: {
+    lastName: {
       type: String,
       required: true,
+      minlength: 2,
+      maxlength: 30,
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      validate: [validator.isEmail, "Provide A Valid Email"],
+      validate: [validator.isEmail, "Provide a valid email!"],
     },
     phone: {
-      tpye: Number,
+      type: String,
       required: true,
       maxLength: 10,
     },
-    dob: {
-      type: Date,
-      required: true,
-    },
     nic: {
       type: String,
+      required: true,
+      validate: [
+        validator.isLength({ min: 9, max: 10 }),
+        "Provide a valid NIC!",
+      ],
+    },
+    dob: {
+      type: Date,
       required: true,
     },
     gender: {
@@ -40,6 +48,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       minlength: 8,
+      select: false,
     },
     role: {
       type: String,
@@ -48,7 +57,6 @@ const userSchema = new mongoose.Schema(
     },
     doctorDepartment: {
       type: String,
-      required: true,
     },
     docAvatar: {
       public_id: String,
@@ -67,6 +75,4 @@ userSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.model("User", userSchema);
-
-export default User;
+const User = mongoose.Model("User", userSchema);

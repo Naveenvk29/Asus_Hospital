@@ -13,6 +13,7 @@ const messageSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     validate: [validator.isEmail, "Provide a valid email"],
   },
   phone: {
