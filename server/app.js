@@ -3,6 +3,8 @@ import cookieParser from "cookie-parser";
 
 import fileUpload from "express-fileupload";
 
+import messageRoute from "./Routers/message.router.js";
+
 const app = express();
 
 app.use(express.json());
@@ -19,5 +21,7 @@ app.use(
     tempFileDir: "/temp/",
   })
 );
+
+app.use("/api/v1/message", messageRoute);
 
 export default app;
