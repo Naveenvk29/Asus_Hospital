@@ -5,6 +5,8 @@ import fileUpload from "express-fileupload";
 
 import messageRoute from "./Routers/message.router.js";
 
+// import userRouter from "./Routers/user.router.js";
+
 const app = express();
 
 app.use(express.json());
@@ -23,5 +25,6 @@ app.use(
 );
 
 app.use("/api/v1/message", messageRoute);
+// app.use("/api/v1/users", userRouter);
 
 export default app;

@@ -30,10 +30,6 @@ const userSchema = new mongoose.Schema(
     nic: {
       type: String,
       required: true,
-      validate: [
-        validator.isLength({ min: 9, max: 10 }),
-        "Provide a valid NIC!",
-      ],
     },
     dob: {
       type: Date,
@@ -71,8 +67,10 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-userSchema.methods.comparePassword = async function (password) {
+userSchema.methods.matchPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.Model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+
+export default User;
