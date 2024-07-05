@@ -1,20 +1,15 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import bcrypt from "bcryptjs";
 
-const userSchema = mongoose.Schema(
+const appointmentSchema = mongoose.Schema(
   {
-    firstName: {
+    firstNam: {
       type: String,
       required: true,
-      minlength: 2,
-      maxlength: 30,
     },
     lastName: {
       type: String,
       required: true,
-      minlength: 2,
-      maxlength: 30,
     },
     email: {
       type: String,
@@ -41,41 +36,54 @@ const userSchema = mongoose.Schema(
       type: String,
       enum: ["Male", "Female", "Other"],
     },
-    password: {
+    appointmentDate: {
       type: String,
       required: true,
-      minlength: 8,
     },
-    role: {
+    department: {
       type: String,
       required: true,
-      enum: ["Doctor", "Patient"],
     },
-    doctorDepartment: {
-      type: String,
+    doctor: {
+      firstName: {
+        type: String,
+        required: true,
+      },
+      lastName: {
+        type: String,
+        required: true,
+      },
     },
-    doctorAvatar: {
-      // public_id: String,
-      // url: String,
-      type: String,
-    },
-    isAdmin: {
+    hasVisited: {
       type: Boolean,
       default: false,
+    },
+    isCancelled: {
+      type: Boolean,
+      default: false,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    doctorId: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+    },
+    patientId: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["Pending", "Accepted", "Rejected"],
+      default: "Pending",
     },
   },
   { timestamp: true }
 );
 
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10);
-});
+const Appointment = mongoose.model("Appointment", appointmentSchema);
 
-userSchema.methods.isPasswordCorrect = async function (password) {
-  return await bcrypt.compare(password, this.password);
-};
-
-const User = mongoose.model("User", userSchema);
-
-export default User;
+export default Appointment;
