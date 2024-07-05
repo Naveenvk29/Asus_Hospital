@@ -2,6 +2,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 
 import messageRoutes from "./routes/message.route.js";
+import userRoutes from "./routes/user.routes.js";
 const app = express();
 
 app.use(express.json());
@@ -15,5 +16,7 @@ app.get("/test", (req, res) => {
 });
 
 app.use("/api/v1/message", messageRoutes);
+
+app.use("/api/v1/users", userRoutes);
 
 export { app };
