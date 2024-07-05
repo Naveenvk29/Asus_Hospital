@@ -1,1 +1,0 @@
-export const DB_NAME = "MANAGEMENT_SYSTEM_OF_HOSPITAL";
