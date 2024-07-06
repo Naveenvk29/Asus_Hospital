@@ -66,7 +66,7 @@ const Departments = () => {
 
   return (
     <>
-      <div className="px-24 ">
+      <div className="px-24  ">
         <div className="pt-[30px] pb-[50px]">
           <h2 className="mb-8 text-gray-600">Departments</h2>
           <Carousel

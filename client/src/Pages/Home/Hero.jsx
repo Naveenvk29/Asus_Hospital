@@ -1,13 +1,10 @@
-import React from "react";
-
 const Hero = ({ title, imageUrl }) => {
   return (
     <>
       <div className=" container relative flex gap-12 px-24  py-32 ">
         <div className="flex flex-col w-[41rem] scroll-none ">
           <h1 className="text-3xl tracking-widest font-extrabold mb-6 ">
-            Welcome to AsusCare Medical Institute | Your Trusted Healthcare
-            Provider
+            {title}
           </h1>
           <p className="text-xl tracking-wide ">
             ZeeCare Medical Institute is a state-of-the-art facility dedicateds

@@ -4,9 +4,7 @@ import Biography from "../components/Biography";
 const AboutUs = () => {
   return (
     <>
-      <Hero
-      // imageUrl={"/about.png"}
-      />
+      <Hero title={"Learn More About Us | ASUS Medical Institute"} />
       <Biography imageUrl={"/whoweare.png"} />
     </>
   );

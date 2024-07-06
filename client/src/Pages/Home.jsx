@@ -5,7 +5,11 @@ import MessageForm from "../components/MessageForm";
 const Home = () => {
   return (
     <>
-      <Hero />
+      <Hero
+        title={
+          "Welcome to ASUSCare Medical Institute | Your Trusted Healthcare Provider"
+        }
+      />
       <Biography />
       <Departments />
       <MessageForm />

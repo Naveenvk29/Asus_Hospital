@@ -1,7 +1,7 @@
 const Biography = () => {
   return (
     <>
-      <div className="flex gap-14 pt-10 pb-16">
+      <div className="flex gap-14 pt-10 pb-16 ">
         <div className=" flex-1 flex justify-center items-center">
           <img src={"asasas"} alt="whoweare" />
         </div>

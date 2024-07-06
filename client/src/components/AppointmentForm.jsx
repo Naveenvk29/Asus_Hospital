@@ -1,6 +1,4 @@
-// import { useEffect } from "react";
 import { useState } from "react";
-// import { toast } from "react-toastify";
 
 const AppointmentForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -31,53 +29,63 @@ const AppointmentForm = () => {
 
   return (
     <>
-      <div className="container px-24 form-component appointment-form">
-        <h2>Appointment</h2>
-        <form>
-          <div>
+      <div className="container px-[24rem] pb-[60px] mr-[20px]">
+        <h2 className="text-lg font-bold mb-5 underline">Appointment</h2>
+        <form className="flex flex-col gap-8">
+          <div className="flex gap-8 ">
             <input
               type="text"
               placeholder="First Name"
+              className="flex-1  py-3 pr-2 pl-[40px] rounded-lg border-gray-700"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
             <input
               type="text"
               placeholder="Last Name"
+              className="flex-1  py-3 pr-2 pl-[40px] rounded-lg border-gray-700"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
           </div>
-          <div>
+          <div className="flex gap-8 ">
             <input
               type="text"
               placeholder="Email"
+              className="flex-1  py-3 pr-2 pl-[40px] rounded-lg border-gray-700"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
               type="number"
               placeholder="Mobile Number"
+              className="flex-1  py-3 pr-2 pl-[40px] rounded-lg border-gray-700"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
-          <div>
+          <div className="flex gap-8 ">
             <input
               type="number"
               placeholder="NIC"
+              className="flex-1  py-3 pr-2 pl-[40px] rounded-lg border-gray-700"
               value={nic}
               onChange={(e) => setNic(e.target.value)}
             />
             <input
               type="date"
               placeholder="Date of Birth"
+              className="flex-1  py-3 pr-2 pl-[40px] rounded-lg border-gray-700"
               value={dob}
               onChange={(e) => setDob(e.target.value)}
             />
           </div>
-          <div>
-            <select value={gender} onChange={(e) => setGender(e.target.value)}>
+          <div className="flex gap-8 ">
+            <select
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              className="flex-1  py-3 pr-2 pl-[40px] rounded-lg border-gray-700"
+            >
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -85,12 +93,14 @@ const AppointmentForm = () => {
             <input
               type="date"
               placeholder="Appointment Date"
+              className="flex-1  py-3 pr-2 pl-[40px] rounded-lg border-gray-700"
               value={appointmentDate}
               onChange={(e) => setAppointmentDate(e.target.value)}
             />
           </div>
-          <div>
+          <div className="flex gap-8 ">
             <select
+              className="flex-1  py-3 pr-2 pl-[40px] rounded-lg border-gray-700"
               value={department}
               onChange={(e) => {
                 setDepartment(e.target.value);
@@ -108,6 +118,7 @@ const AppointmentForm = () => {
             </select>
             <select
               value={`${doctorFirstName} ${doctorLastName}`}
+              className="flex-1  py-3 pr-2 pl-[40px] rounded-lg border-gray-700"
               onChange={(e) => {
                 const [firstName, lastName] = e.target.value.split(" ");
                 setDoctorFirstName(firstName);
@@ -116,40 +127,27 @@ const AppointmentForm = () => {
               disabled={!department}
             >
               <option value="">Select Doctor</option>
-              {/* {doctors
-                .filter((doctor) => doctor.doctorDepartment === department)
-                .map((doctor, index) => (
-                  <option
-                    value={`${doctor.firstName} ${doctor.lastName}`}
-                    key={index}
-                  >
-                    {doctor.firstName} {doctor.lastName}
-                  </option>
-                ))} */}
             </select>
           </div>
           <textarea
-            rows="10"
+            rows="3"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            className="flex-1  py-3 pr-2 pl-[40px] rounded-lg border-gray-700"
             placeholder="Address"
           />
-          <div
-            style={{
-              gap: "10px",
-              justifyContent: "flex-end",
-              flexDirection: "row",
-            }}
-          >
-            <p style={{ marginBottom: 0 }}>Have you visited before?</p>
+          <div className="flex gap-5 text-lg font-semibold ">
+            <p>Have you visited before?</p>
             <input
               type="checkbox"
+              className="px-4 py-2"
               checked={hasVisited}
               onChange={(e) => setHasVisited(e.target.checked)}
-              style={{ flex: "none", width: "25px" }}
             />
           </div>
-          <button style={{ margin: "0 auto" }}>GET APPOINTMENT</button>
+          <button className="bg-green-500 text-white text-lg px-4 py-2 rounded cursor-pointer  hover:bg-green-800">
+            GET APPOINTMENT
+          </button>
         </form>
       </div>
     </>
