@@ -1,4 +1,4 @@
-import Hero from "./Home/Hero";
+import Hero from "../components/Hero";
 import Biography from "../components/Biography";
 import Departments from "../components/Department";
 import MessageForm from "../components/MessageForm";
@@ -7,10 +7,11 @@ const Home = () => {
     <>
       <Hero
         title={
-          "Welcome to ASUSCare Medical Institute | Your Trusted Healthcare Provider"
+          "Welcome to ASUS Medical Institute | Your Trusted Healthcare Provider"
         }
+        imageUrl={"./hero.png"}
       />
-      <Biography />
+      <Biography imageUrl={"./about.png"} />
       <Departments />
       <MessageForm />
     </>

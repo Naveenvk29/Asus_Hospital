@@ -68,7 +68,7 @@ const MessageForm = () => {
           </div>
         </form>
         <span className=" absolute right-[-300px] top-[-300px] -z-10  ">
-          <img src="/Vector.png" alt="vector" className=" absolute" />
+          <img src={"./Vector.png"} alt="vector" />
         </span>
       </div>
     </>

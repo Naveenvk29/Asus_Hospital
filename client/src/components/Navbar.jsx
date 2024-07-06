@@ -44,12 +44,14 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-        <button
-          className=" py-2 px-5 text-[#e5e5e5]  border-none  rounded-full text-sm font-semibold z-10 bg-black "
-          onClick={handleLogout}
-        >
-          LOGOUT
-        </button>
+        <div>
+          <button
+            className=" py-2 px-5 text-[#e5e5e5]  border-none  rounded-full text-sm font-semibold z-10 bg-black "
+            onClick={handleLogout}
+          >
+            LOGOUT
+          </button>
+        </div>
         {/* <div className=" disabled:" onClick={() => setShow(!show)}>
           <GiHamburgerMenu />
         </div> */}

@@ -1,10 +1,13 @@
 import AppointmentForm from "../components/AppointmentForm";
-import Home from "../Pages/Home/Hero.jsx";
+import Hero from "../components/Hero";
 
 const Appointment = () => {
   return (
     <>
-      <Home />
+      <Hero
+        title={"Schedule Your Appointment | Asus Medical Institute"}
+        imageUrl={"/signin.png"}
+      />
       <AppointmentForm />
     </>
   );

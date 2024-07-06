@@ -29,7 +29,7 @@ const AppointmentForm = () => {
 
   return (
     <>
-      <div className="container px-[24rem] pb-[60px] mr-[20px]">
+      <div className="container px-[24rem] pb-[60px] mr-[20px] -mt-[250px]">
         <h2 className="text-lg font-bold mb-5 underline">Appointment</h2>
         <form className="flex flex-col gap-8">
           <div className="flex gap-8 ">

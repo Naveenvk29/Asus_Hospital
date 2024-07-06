@@ -1,8 +1,8 @@
 const Hero = ({ title, imageUrl }) => {
   return (
     <>
-      <div className=" container relative flex gap-12 px-24  py-32 ">
-        <div className="flex flex-col w-[41rem] scroll-none ">
+      <div className=" container relative flex gap-12 px-24  py-32 h-[100vh] ">
+        <div className="flex flex-col w-[41rem]  ">
           <h1 className="text-3xl tracking-widest font-extrabold mb-6 ">
             {title}
           </h1>
@@ -16,9 +16,13 @@ const Hero = ({ title, imageUrl }) => {
           </p>
         </div>
         <div className="flex">
-          <img src={imageUrl} alt="hero" className="" />
+          <img
+            src={imageUrl}
+            alt="hero"
+            className=" absolute top-[-10px] animated-image "
+          />
           <span className=" absolute right-[-300px] top-[-300px] -z-10  ">
-            <img src={imageUrl} alt="vector" />
+            <img src={"./Vector.png"} alt="vector" />
           </span>
         </div>
       </div>
