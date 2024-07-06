@@ -11,6 +11,7 @@ const App = () => {
       <main>
         <Outlet />
       </main>
+      <hr className="text-sm" />
       <Footer />
     </>
   );

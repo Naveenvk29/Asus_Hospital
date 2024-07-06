@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className=" container flex w-full justify-around items-center  py-5 z-20 bg-white
+        className=" container flex w-full justify-around items-center  py-5 z-20 
       "
       >
         <div className="flex items-center text-4xl">
@@ -36,7 +36,7 @@ const Navbar = () => {
               Appointment
             </Link>
             <Link
-              to={"/about"}
+              to={"/aboutus"}
               onClick={() => setShow(!show)}
               className="text-xl font-semibold tracking-[2px] hover:text-slate-500 hover:cursor-pointer hover:underline"
             >
