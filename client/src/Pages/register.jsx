@@ -1,6 +1,9 @@
-import { useState } from "react";
-
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { usePatientRegisterMutation } from "../redux/api/usersApi";
+import { login } from "../redux/features/authSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -11,11 +14,45 @@ const Register = () => {
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const [registerApicall, { isLoading }] = usePatientRegisterMutation();
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/aboutus");
+    }
+  }, [navigate, isAuthenticated]);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await registerApicall({
+        firstName,
+        lastName,
+        email,
+        phone,
+        nic,
+        dob,
+        gender,
+        password,
+      });
+      dispatch(login({ ...data }));
+      navigate("/");
+      toast.success("Registration successful! ");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="container px-[24rem] pb-[60px]  mt-[100px] mr-[20px] ">
         <h2 className="text-lg font-bold mb-5 underline">Sign Up</h2>
-        <form className="flex flex-col gap-8">
+        <form className="flex flex-col gap-8" onSubmit={handleRegister}>
           <div className="flex gap-8 ">
             <input
               type="text"
@@ -96,7 +133,7 @@ const Register = () => {
               type="submit"
               className="bg-green-500 text-white text-lg px-4 py-2 rounded cursor-pointer my-[1rem] hover:bg-green-800"
             >
-              Register
+              {isLoading ? "Registering..." : "Register"}
             </button>
           </div>
         </form>

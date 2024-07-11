@@ -39,15 +39,12 @@ const patientRegister = asyncHandler(async (req, res) => {
 });
 
 const login = asyncHandler(async (req, res) => {
-  const { email, password, confirmPassword, role } = req.body;
+  const { email, password, role } = req.body;
 
-  if ([email, password, confirmPassword].some((field) => field.trim() === "")) {
+  if ((!email || !password, role)) {
     throw new ApiError(400, "All fields are required");
   }
-  if (password !== confirmPassword) {
-    throw new ApiError(400, "  passwords must match ");
-  }
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email });
   if (!user) {
     throw new ApiError(400, "user not found");
   }
@@ -120,17 +117,16 @@ const addNewDoctor = asyncHandler(async (req, res, next) => {
   } = req.body;
 
   if (
-    [
-      firstName,
-      lastName,
-      email,
-      phone,
-      nic,
-      dob,
-      gender,
-      password,
-      doctorDepartment,
-    ].some((field) => field.trim() === "")
+    !firstName ||
+    !lastName ||
+    !email ||
+    !phone ||
+    !nic ||
+    !dob ||
+    !gender ||
+    !password ||
+    !doctorDepartment ||
+    !docAvatar.originalname.match(/\.(jpg|jpeg|png|gif)$/)
   ) {
     throw new ApiError(400, "All fields are required");
   }

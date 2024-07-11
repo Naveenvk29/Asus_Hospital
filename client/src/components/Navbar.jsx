@@ -1,43 +1,52 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { useLogoutPatientMutation } from "../redux/api/usersApi";
+import { logout } from "../redux/features/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const Navbar = () => {
-  const [show, setShow] = useState(false);
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  // const [show, setShow] = useState(false);
+
+  const dispatch = useDispatch();
+  const [logoutPatient] = useLogoutPatientMutation();
+
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    navigate("/auth/");
+  const handleLogout = async () => {
+    try {
+      await logoutPatient();
+      dispatch(logout());
+      navigate("/signin");
+    } catch (error) {
+      console.error(error);
+    }
   };
-
   return (
     <>
       <nav
-        className=" container flex w-full justify-around items-center  py-5 z-20 
+        className=" container flex w-full justify-evenly items-center  py-5 absolute z-20 
       "
       >
         <div className="flex items-center text-4xl">
           <img src="/logo.png" alt="logo" className="logo-img" />
         </div>
-        <div className={show ? "navLinks showmenu" : "navLinks"}>
+        <div>
           <div className="flex gap-6">
             <Link
               className="text-xl font-semibold tracking-[2px] hover:text-slate-500 hover:cursor-pointer hover:underline"
               to={"/"}
-              onClick={() => setShow(!show)}
             >
               Home
             </Link>
             <Link
               to={"/appointment"}
-              onClick={() => setShow(!show)}
               className="text-xl font-semibold tracking-[2px] hover:text-slate-500 hover:cursor-pointer hover:underline"
             >
               Appointment
             </Link>
             <Link
               to={"/aboutus"}
-              onClick={() => setShow(!show)}
               className="text-xl font-semibold tracking-[2px] hover:text-slate-500 hover:cursor-pointer hover:underline"
             >
               About Us
@@ -45,16 +54,45 @@ const Navbar = () => {
           </div>
         </div>
         <div>
-          <button
-            className=" py-2 px-5 text-[#e5e5e5]  border-none  rounded-full text-sm font-semibold z-10 bg-black "
-            onClick={handleLogout}
-          >
-            LOGOUT
-          </button>
+          {isAuthenticated && (
+            <div>
+              <button
+                className="bg-green-500 text-white text-lg px-4 py-2 rounded cursor-pointer my-[1rem] hover:bg-green-800"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
-        {/* <div className=" disabled:" onClick={() => setShow(!show)}>
-          <GiHamburgerMenu />
-        </div> */}
+        <div>
+          {isAuthenticated?.role === "Admin" && (
+            <div>
+              <button
+                className="bg-green-500 text-white text-lg px-4 py-2 rounded cursor-pointer my-[1rem] hover:bg-green-800"
+                onClick={handleLogout}
+              >
+                <Link
+                  className="text-xl font-semibold tracking-[2px] hover:text-slate-500 hover:cursor-pointer hover:underline"
+                  to={"/admin/dashboard"}
+                >
+                  {" "}
+                  Dashboard{" "}
+                </Link>
+              </button>
+            </div>
+          )}
+        </div>
+        {!isAuthenticated && (
+          <button className="text-xl font-semibold  bg-green-500 text-white px-4 py-2 rounded cursor-pointer my-[1rem] hover:bg-green-800">
+            <Link
+              className="tracking-[2px] hover:text-slate-500 hover:cursor-pointer hover:underline"
+              to={"/signin"}
+            >
+              Login
+            </Link>
+          </button>
+        )}
       </nav>
     </>
   );

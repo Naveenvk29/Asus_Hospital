@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 
-const apponimentSchema = new mongoose.Schema(
+const appointmentSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -81,6 +81,6 @@ const apponimentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Apponiment = mongoose.model("Apponiment", apponimentSchema);
+const Appointment = mongoose.model("Appointment", appointmentSchema);
 
-export default Apponiment;
+export default Appointment;
