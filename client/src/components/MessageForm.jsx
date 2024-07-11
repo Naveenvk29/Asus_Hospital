@@ -1,6 +1,6 @@
 import { useState } from "react";
-
-// import { toast } from "react-toastify";
+import { useSendMessageMutation } from "../redux/api/messageApiSlice";
+import { toast } from "react-toastify";
 
 const MessageForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -9,13 +9,41 @@ const MessageForm = () => {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
 
+  const [sendMessage] = useSendMessageMutation();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await sendMessage({
+        firstName,
+        lastName,
+        email,
+        phone,
+        message,
+      }).unwrap();
+      if (res.error) {
+        toast.error(res.error);
+      } else {
+        toast.success("xMessage sent successfully!");
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to send message. Please try again.");
+    }
+  };
+
   return (
     <>
       <div className="px-24 pt-10 pb-14 relative">
         <h2 className="mb-8 ml-[36rem] text-2xl tracking-wide text-gray-600 font-bold">
           Send Us A Message
         </h2>
-        <form className="flex flex-col gap-8">
+        <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
           <div className="flex gap-8">
             <input
               type="text"

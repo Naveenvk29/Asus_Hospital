@@ -18,7 +18,7 @@ const router = express.Router();
 
 // patient routes
 router.post("/patient/register", patientRegister);
-router.post("/patient/logout", isPatientAuthenticated, logoutPatient);
+router.get("/patient/logout", isPatientAuthenticated, logoutPatient);
 router.get("/patient/me", isPatientAuthenticated, getUserDetails);
 
 // public
