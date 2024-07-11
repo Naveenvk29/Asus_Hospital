@@ -1,10 +1,11 @@
 import Message from "../models/message.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import { ApiError } from "../utils/ApiError.js";
 
 const sendMessage = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, phone, message } = req.body;
   if (!firstName || !lastName || !email || !phone || !message) {
-    return res.status(400).json({ message: "All fields are required" });
+    throw new ApiError(400, "All fields are required");
   }
   const newMessage = await Message.create({
     firstName,
@@ -21,7 +22,11 @@ const sendMessage = asyncHandler(async (req, res) => {
 
 const getMessages = asyncHandler(async (req, res) => {
   const messages = await Message.find({});
-  res.json(messages);
+  if (!messages) {
+    throw new ApiError(404, "No messages found");
+  } else {
+    res.status(200).json(messages);
+  }
 });
 
 export { sendMessage, getMessages };

@@ -1,14 +1,21 @@
-import jwt from "jsonwebtoken";
+const generateToken = (user, message, statusCode, res) => {
+  const token = user.genrateSecretToken();
+  // Determine the cookie name based on the user's role
+  const cookieName = user.role === "Admin" ? "adminToken" : "patientToken";
 
-const generateToken = (req, userId) => {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
-    expiresIn: "3d",
-  });
-  req.cookie("jwt", token, {
-    httpOnly: true,
-    maxAge: 3 * 24 * 60 * 60 * 1000,
-  });
-  return token;
+  res
+    .status(statusCode)
+    .cookie(cookieName, token, {
+      expires: new Date(
+        Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+      ),
+      httpOnly: true,
+    })
+    .json({
+      success: true,
+      message,
+      user,
+      token,
+    });
 };
-
 export default generateToken;

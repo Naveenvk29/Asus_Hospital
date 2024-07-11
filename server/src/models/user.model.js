@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const userSchema = mongoose.Schema(
   {
@@ -49,19 +50,15 @@ const userSchema = mongoose.Schema(
     role: {
       type: String,
       required: true,
-      enum: ["Doctor", "Patient"],
+      enum: ["Doctor", "Patient", "Admin"],
     },
     doctorDepartment: {
       type: String,
     },
     doctorAvatar: {
-      // public_id: String,
-      // url: String,
-      type: String,
-    },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+      public_id: String,
+      url: String,
+      // type: String,
     },
   },
   { timestamp: true }
@@ -74,6 +71,11 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
+};
+userSchema.methods.genrateSecretToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES,
+  });
 };
 
 const User = mongoose.model("User", userSchema);
